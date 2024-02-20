@@ -3,9 +3,15 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    per = params[:per] || 10
+    page = params[:page] || 1
+    tag_ids = params[:tag_ids]&.split(",")
+    @posts = Post.eager_load(:user, tags: :tag_group)
+    @posts = @posts.where(tags: { id: tag_ids }) if tag_ids.present?
+    @posts = @posts.where(category_id: params[:category_id]) if params[:category_id].present?
+    @posts = @posts.where(sub_category_id: params[:sub_category_id]) if params[:sub_category_id].present?
 
-    render json: @posts
+    @posts = @posts.page(page).per(per)
   end
 
   # GET /posts/1
@@ -16,6 +22,7 @@ class PostsController < ApplicationController
   # POST /posts
   def create
     @post = Post.new(post_params)
+    @post.user_id = 1
 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -46,6 +53,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:category_id, :sub_category_id, :user_id, :title, :body)
+      params.require(:post).permit(:category_id, :sub_category_id, :title, :body, :tag_ids, :condition_ids)
     end
 end
