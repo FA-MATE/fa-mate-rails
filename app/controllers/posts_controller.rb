@@ -16,7 +16,6 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
-    render json: @post
   end
 
   # POST /posts
@@ -48,7 +47,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = Post.eager_load(:user, :conditions, tags: :tag_group).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
