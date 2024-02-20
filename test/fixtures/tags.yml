@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tag_group: one
+  name: MyString
+  order_no: 1
+
+two:
+  tag_group: two
+  name: MyString
+  order_no: 1
