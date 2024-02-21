@@ -1,0 +1,7 @@
+@category.sub_categories.map do |sub_category|
+  {
+    id: sub_category.id,
+    name: sub_category.name,
+    order_no: sub_category.order_no
+  }
+end

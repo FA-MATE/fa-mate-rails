@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   resources :tags
   resources :condition_groups
   resources :sub_categories
-  resources :categories
+  resources :categories do
+    member do
+      get 'sub_categories', format: 'json'
+    end
+  end
   resources :tag_groups
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
