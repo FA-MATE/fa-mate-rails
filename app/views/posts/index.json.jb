@@ -1,0 +1,20 @@
+@posts.map do |post|
+  {
+    id: post.id,
+    title: post.title,
+    category_id: post.category_id,
+    sub_category_id: post.sub_category_id,
+    user: {
+      id: post.user.id,
+      nickname: post.user.nickname,
+      profile_image_url: post.user.profile_image_url,
+    },
+    tags: post.tags.map do |tag|
+      {
+        id: tag.id,
+      }
+    end,
+    created_at: post.created_at,
+    updated_at: post.updated_at
+  }
+end

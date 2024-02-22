@@ -1,11 +1,12 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[ show update destroy ]
+  before_action :set_category, only: %i[ show update destroy sub_categories]
 
   # GET /categories
   def index
     @categories = Category.all
+  end
 
-    render json: @categories
+  def sub_categories
   end
 
   # GET /categories/1
