@@ -86,6 +86,11 @@ $ curl -X POST \
 {"id":4,"category_id":1,"sub_category_id":1,"user_id":1,"title":"새로운 포스트 제목","body":"새로운 포스트 내용","created_at":"2024-02-21T15:48:45.875Z","updated_at":"2024-02-21T15:48:45.875Z"}
 ```
 
+## DELETE /posts/:post_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/posts/4.json 
+```
+
 --- 
 
 # TagGroup
@@ -125,6 +130,11 @@ $ curl -X PUT \
     }
 }'
 {"name":"태그 그룹 새 이름","order_no":2,"id":2,"created_at":"2024-02-23T09:36:55.363Z","updated_at":"2024-02-23T09:37:26.378Z"}
+```
+
+## DELETE /tag_groups/:tag_group_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/tag_groups/2.json 
 ```
 
 ---
@@ -176,6 +186,11 @@ $ curl -X PUT \
 {"name":"태그 새 이름","order_no":2,"tag_group_id":1,"id":2,"created_at":"2024-02-23T09:35:13.059Z","updated_at":"2024-02-23T09:35:26.192Z"}
 ```
 
+## DELETE /tags/:tag_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/tags/2.json 
+```
+
 ---
 
 # ConditionGroup
@@ -215,6 +230,11 @@ $ curl -X PUT \
     }
 }'
 {"name":"조건 그룹 새 이름","order_no":2,"id":2,"created_at":"2024-02-23T09:38:52.746Z","updated_at":"2024-02-23T09:39:05.408Z"}
+```
+
+## DELETE /condition_groups/:condition_group_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/condition_groups/2.json 
 ```
 
 ---
@@ -266,6 +286,11 @@ $ curl -X PUT \
 {"name":"조건 새 이름","order_no":2,"condition_group_id":1,"id":2,"created_at":"2024-02-23T09:39:48.069Z","updated_at":"2024-02-23T09:39:58.510Z"}
 ```
 
+## DELETE /conditions/:condition_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/conditions/2.json 
+```
+
 ----
 # Category
 ## GET /categories.json
@@ -308,6 +333,11 @@ $ curl -X PUT \
     }
 }'
 {"name":"카테고리 새 이름","order_no":2,"id":2,"created_at":"2024-02-23T09:23:47.977Z","updated_at":"2024-02-23T09:24:07.689Z"}
+```
+
+## DELETE /categories/:category_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/categories/2.json 
 ```
 
 ----
@@ -354,4 +384,9 @@ $ curl -X PUT \
     }
 }'
 {"name":"서브카테고리 새 이름","order_no":2,"category_id":1,"id":3,"created_at":"2024-02-23T09:21:56.877Z","updated_at":"2024-02-23T09:22:56.958Z"}
+```
+
+## DELETE /sub_categories/:sub_category_id.json
+```sh
+$ curl -X DELETE https://fa-mate-rails.onrender.com/sub_categories/3.json 
 ```
