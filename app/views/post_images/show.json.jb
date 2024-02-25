@@ -1,0 +1,8 @@
+{
+  id: @post_image.id,
+  post_id: @post_image.post_id,
+  image: @post_image.image,
+  order_no: @post_image.order_no,
+  created_at: @post_image.created_at,
+  updated_at: @post_image.updated_at
+}
