@@ -14,6 +14,7 @@
         id: tag.id,
       }
     end,
+    post_image: post.post_images.first,
     created_at: post.created_at,
     updated_at: post.updated_at
   }
