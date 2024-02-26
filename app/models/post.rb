@@ -6,4 +6,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many :post_conditions
   has_many :conditions, through: :post_conditions
+  has_many :post_images
+
+  accepts_nested_attributes_for :post_tags, :post_conditions, :post_images
 end

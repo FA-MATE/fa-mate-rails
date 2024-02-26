@@ -17,10 +17,11 @@
     - user: object
       - id: integer
       - nickname: string
-      - profile_image_url: string
+      - profile_image_url?: string
     - tags: array
       - id: integer
       - order_no: integer
+    - post_image_url?: string
 
 ```sh
 $ curl -X GET https://fa-mate-rails.onrender.com/posts.json
@@ -48,6 +49,10 @@ $curl -X GET 'https://fa-mate-rails.onrender.com/posts.json?per=1&page=1&tag_ids
     - id: integer
   - conditions: array
     - id: integer
+  - post_images: array
+    - post_image: object
+      - image_url: string
+      - order_no: integer
   - created_at: datetime
   - updated_at: datetime
 
@@ -62,28 +67,31 @@ $ curl -X GET https://fa-mate-rails.onrender.com/posts/1.json
   - sub_category_id: integer
   - title: string
   - body: string
-  - tags: array
-    - id: integer
-  - conditions: array
-    - id: integer
+  - post_tags_attributes: array
+    - post_tags: object
+      - tag_id: integer
+  - post_conditions_attributes: array
+    - post_conditions: object
+      - condition_id: integer
+  - post_images_attributes: array
+    - post_images: object
+      - image: file
+      - order_no: integer
 
 response: 생성된 post 리소스
 
 ```sh
 $ curl -X POST \
   https://fa-mate-rails.onrender.com/posts.json \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "post": {
-        "category_id": 1,
-        "sub_category_id": 1,
-        "title": "새로운 포스트 제목",
-        "body": "새로운 포스트 내용",
-        "tags": [{"id": 1}, {"id": 2}], 
-        "conditions": [{"id": 3}, {"id": 4}]
-    }
-}'
-{"id":4,"category_id":1,"sub_category_id":1,"user_id":1,"title":"새로운 포스트 제목","body":"새로운 포스트 내용","created_at":"2024-02-21T15:48:45.875Z","updated_at":"2024-02-21T15:48:45.875Z"}
+  -F "post[category_id]=1" \
+  -F "post[sub_category_id]=1" \
+  -F "post[title]=새로운 포스트 제목" \
+  -F "post[body]=새로운 포스트 내용" \
+  -F "post[post_tags_attributes][0][tag_id]=1" \
+  -F "post[post_conditions_attributes][0][condition_id]=1" \
+  -F "post[post_images_attributes][0][image]=@/Users/iruri/Downloads/image.png" \
+  -F "post[post_images_attributes][0][order_no]=1"
+{"id":29,"category_id":1,"sub_category_id":1,"user_id":1,"title":"새로운 포스트 제목","body":"새로운 포스트 내용","created_at":"2024-02-25T15:26:36.066Z","updated_at":"2024-02-25T15:26:36.066Z"}
 ```
 
 ## DELETE /posts/:post_id.json

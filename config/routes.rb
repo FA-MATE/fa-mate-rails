@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :post_images
   resources :post_conditions
   resources :user_conditions
   resources :post_tags

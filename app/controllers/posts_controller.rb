@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     per = params[:per] || 10
     page = params[:page] || 1
     tag_ids = params[:tag_ids]&.split(",")
-    @posts = Post.eager_load(:user, tags: :tag_group)
+    @posts = Post.eager_load(:user, :post_images, tags: :tag_group)
     @posts = @posts.where(tags: { id: tag_ids }) if tag_ids.present?
     @posts = @posts.where(category_id: params[:category_id]) if params[:category_id].present?
     @posts = @posts.where(sub_category_id: params[:sub_category_id]) if params[:sub_category_id].present?
@@ -47,11 +47,18 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.eager_load(:user, :conditions, tags: :tag_group).find(params[:id])
+      @post = Post.eager_load(:user, :conditions, :post_images, tags: :tag_group).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:category_id, :sub_category_id, :title, :body, :tag_ids, :condition_ids)
+      params.require(:post)
+        .permit(:category_id,
+                :sub_category_id,
+                :title,
+                :body,
+                post_conditions_attributes: [:condition_id],
+                post_tags_attributes: [:tag_id],
+                post_images_attributes: [:image, :order_no])
     end
 end
