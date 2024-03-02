@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
-  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,28 +33,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "active_storage_variant_records", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_variant_records", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
     t.integer "order_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "condition_groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "condition_groups", force: :cascade do |t|
     t.string "name"
     t.integer "order_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "conditions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "condition_group_id", null: false
+  create_table "conditions", force: :cascade do |t|
+    t.integer "condition_group_id", null: false
     t.string "name"
     t.integer "order_no"
     t.datetime "created_at", null: false
@@ -62,36 +62,36 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
     t.index ["condition_group_id"], name: "index_conditions_on_condition_group_id"
   end
 
-  create_table "post_conditions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.bigint "condition_id", null: false
+  create_table "post_conditions", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "condition_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["condition_id"], name: "index_post_conditions_on_condition_id"
     t.index ["post_id"], name: "index_post_conditions_on_post_id"
   end
 
-  create_table "post_images", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "post_id", null: false
+  create_table "post_images", force: :cascade do |t|
+    t.integer "post_id", null: false
     t.integer "order_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_post_images_on_post_id"
   end
 
-  create_table "post_tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.bigint "tag_id", null: false
+  create_table "post_tags", force: :cascade do |t|
+    t.integer "post_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_post_tags_on_post_id"
     t.index ["tag_id"], name: "index_post_tags_on_tag_id"
   end
 
-  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "category_id", null: false
-    t.bigint "sub_category_id", null: false
-    t.bigint "user_id", null: false
+  create_table "posts", force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "sub_category_id", null: false
+    t.integer "user_id", null: false
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
@@ -101,8 +101,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "sub_categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "category_id", null: false
+  create_table "sub_categories", force: :cascade do |t|
+    t.integer "category_id", null: false
     t.string "name"
     t.integer "order_no"
     t.datetime "created_at", null: false
@@ -110,15 +110,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
     t.index ["category_id"], name: "index_sub_categories_on_category_id"
   end
 
-  create_table "tag_groups", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tag_groups", force: :cascade do |t|
     t.string "name"
     t.integer "order_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "tag_group_id", null: false
+  create_table "tags", force: :cascade do |t|
+    t.integer "tag_group_id", null: false
     t.string "name"
     t.integer "order_no"
     t.datetime "created_at", null: false
@@ -126,16 +126,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_140031) do
     t.index ["tag_group_id"], name: "index_tags_on_tag_group_id"
   end
 
-  create_table "user_conditions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "condition_id", null: false
+  create_table "user_conditions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "condition_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["condition_id"], name: "index_user_conditions_on_condition_id"
     t.index ["user_id"], name: "index_user_conditions_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "nickname"
     t.text "profile_image_url"
     t.datetime "created_at", null: false
