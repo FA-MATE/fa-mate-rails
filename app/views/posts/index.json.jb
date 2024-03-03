@@ -12,9 +12,10 @@
     tags: post.tags.map do |tag|
       {
         id: tag.id,
+        order_no: tag.tag_group.order_no,
       }
     end,
-    post_image: post.post_images.first,
+    post_image_url: post.post_images.first&.image_url,
     created_at: post.created_at,
     updated_at: post.updated_at
   }

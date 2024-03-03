@@ -1,6 +1,7 @@
 {
   id: @post.id,
   title: @post.title,
+  body: @post.body,
   category_id: @post.category_id,
   sub_category_id: @post.sub_category_id,
   user: {
