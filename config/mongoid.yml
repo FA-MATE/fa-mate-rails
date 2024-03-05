@@ -145,7 +145,7 @@ development:
 
     # Set the Mongoid and Ruby driver log levels when Mongoid is not using
     # Ruby on Rails logger instance. (default: :info)
-    # log_level: :info
+    log_level: :warn
 
     # Preload all models in development, needed when models use
     # inheritance. (default: false)
