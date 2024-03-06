@@ -3,15 +3,16 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    per = params[:per] || 10
-    page = params[:page] || 1
     tag_ids = params[:tag_ids]&.split(",")
-    @posts = Post.eager_load(:user, post_images: {image_attachment: :blob}, tags: :tag_group)
-    @posts = @posts.where(tags: { id: tag_ids }) if tag_ids.present?
-    @posts = @posts.where(category_id: params[:category_id]) if params[:category_id].present?
-    @posts = @posts.where(sub_category_id: params[:sub_category_id]) if params[:sub_category_id].present?
+    posts = Post.select(:id).joins(:tags)
+    posts = posts.where(tags: { id: tag_ids }) if tag_ids.present?
+    posts = posts.where(category_id: params[:category_id]) if params[:category_id].present?
+    posts = posts.where(sub_category_id: params[:sub_category_id]) if params[:sub_category_id].present?
+    post_ids = posts.page(params[:per]).per(params[:page] )
 
-    @posts = @posts.page(page).per(per)
+    @posts = Post
+      .eager_load(:user, post_images: {image_attachment: :blob}, tags: :tag_group)
+      .where(id: post_ids)
   end
 
   # GET /posts/1
