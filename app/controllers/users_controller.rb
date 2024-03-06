@@ -38,6 +38,11 @@ class UsersController < ApplicationController
     @user.destroy!
   end
 
+  def me
+    user = User.find(1)
+    @user = User.eager_load(:conditions).find(user.id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
