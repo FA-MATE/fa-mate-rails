@@ -8,7 +8,7 @@ class PostsController < ApplicationController
     posts = posts.where(tags: { id: tag_ids }) if tag_ids.present?
     posts = posts.where(category_id: params[:category_id]) if params[:category_id].present?
     posts = posts.where(sub_category_id: params[:sub_category_id]) if params[:sub_category_id].present?
-    post_ids = posts.page(params[:per]).per(params[:page] )
+    post_ids = posts.page(params[:page]).per(params[:per])
 
     @posts = Post
       .eager_load(:user, post_images: {image_attachment: :blob}, tags: :tag_group)
