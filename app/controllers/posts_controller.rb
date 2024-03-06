@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy ]
+  before_action :set_post, only: %i[ show update destroy like ]
 
   # GET /posts
   def index
@@ -17,6 +17,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1
   def show
+    user = User.find(1)
+    @already_liked = UserLikePost.exists?(user_id: user.id, post_id: @post.id)
   end
 
   # POST /posts
@@ -43,6 +45,17 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   def destroy
     @post.destroy!
+  end
+
+  def like
+    user = User.find(1)
+    user_like_post = UserLikePost.where(user_id: user.id, post_id: @post.id)
+
+    if user_like_post.present?
+      user_like_post.delete
+    else
+      UserLikePost.create(user_id: user.id, post_id: @post.id)
+    end
   end
 
   private
