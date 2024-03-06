@@ -12,7 +12,7 @@ class PostsController < ApplicationController
 
     @posts = Post
       .eager_load(:user, post_images: {image_attachment: :blob}, tags: :tag_group)
-      .where(id: post_ids)
+      .where(id: post_ids.map(&:id))
   end
 
   # GET /posts/1
