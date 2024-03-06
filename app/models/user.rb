@@ -6,4 +6,8 @@ class User < ApplicationRecord
   def notification_settings
     UserNotificationSetting.where(user_id: self.id).first
   end
+
+  def devices
+    UserDevice.where(user_id: self.id)
+  end
 end

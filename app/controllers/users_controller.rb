@@ -58,6 +58,22 @@ class UsersController < ApplicationController
                 service_message_notification: params[:service_message_notification].to_i.positive?)
     end
   end
+  
+  # POST /users/me/devices
+  def devices
+    user = User.find(1)
+    device = UserDevice.where(user_id: user.id, device_token: params[:device_token]).first
+    if device.present?
+      device.update(apk_version: params[:apk_version],
+                    os_version: params[:os_version])
+    else
+      UserDevice.create(user_id: user.id,
+                        device_token: params[:device_token],
+                        os_type: params[:os_type],
+                        apk_version: params[:apk_version],
+                        os_version: params[:os_version])
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
