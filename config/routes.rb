@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resources :user_conditions
   resources :post_tags
   resources :conditions
-  resources :posts
+  resources :posts do
+    member do
+      post 'like'
+    end
+  end
   resources :tags
   resources :condition_groups
   resources :sub_categories

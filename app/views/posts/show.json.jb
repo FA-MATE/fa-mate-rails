@@ -25,6 +25,7 @@
       order_no: post_image.order_no,
     }
   end,
+  already_liked: @already_liked,
   created_at: @post.created_at,
   updated_at: @post.updated_at
 }
