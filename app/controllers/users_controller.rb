@@ -42,6 +42,22 @@ class UsersController < ApplicationController
     user = User.find(1)
     @user = User.eager_load(:conditions).find(user.id)
   end
+  
+  # PUT /users/me/notificaiton_settings
+  def notificaiton_settings
+    user = User.find(1)
+    notification_setting = UserNotificationSetting.where(user_id: user.id).first
+    if notification_setting.present?
+      notification_setting
+        .update(post_notification: params[:post_notification].to_i.positive?,
+                service_message_notification: params[:service_message_notification].to_i.positive?)
+    else
+      UserNotificationSetting
+        .create(user_id: user.id,
+                post_notification: params[:post_notification].to_i.positive?,
+                service_message_notification: params[:service_message_notification].to_i.positive?)
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
