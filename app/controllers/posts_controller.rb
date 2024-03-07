@@ -52,7 +52,7 @@ class PostsController < ApplicationController
     user_like_post = UserLikePost.where(user_id: user.id, post_id: @post.id)
 
     if user_like_post.present?
-      user_like_post.delete
+      user_like_post.destroy
     else
       UserLikePost.create(user_id: user.id, post_id: @post.id)
     end
