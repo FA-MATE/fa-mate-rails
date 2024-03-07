@@ -4,8 +4,6 @@ class PostImagesController < ApplicationController
   # GET /post_images
   def index
     @post_images = PostImage.all
-
-    render json: @post_images
   end
 
   # GET /post_images/1
