@@ -14,13 +14,13 @@ Rails.application.routes.draw do
   resources :sub_categories
   resources :categories do
     member do
-      get 'sub_categories', format: 'json'
+      get 'sub_categories'
     end
   end
   resources :tag_groups
   resources :users do
     collection do
-      get 'me', format: 'json'
+      get 'me'
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
