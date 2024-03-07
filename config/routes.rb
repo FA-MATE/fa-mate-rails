@@ -1,23 +1,25 @@
 Rails.application.routes.draw do
-  resources :post_images
-  resources :post_conditions
-  resources :user_conditions
-  resources :post_tags
-  resources :conditions
+  namespace :admin do
+    resources :post_images
+    resources :post_conditions
+    resources :user_conditions
+    resources :post_tags
+    resources :conditions
+    resources :posts
+    resources :tags
+    resources :condition_groups
+    resources :sub_categories
+    resources :categories
+    resources :tag_groups
+    resources :users
+  end
+  
   resources :posts do
     member do
       post 'like'
     end
   end
-  resources :tags
-  resources :condition_groups
-  resources :sub_categories
-  resources :categories do
-    member do
-      get 'sub_categories'
-    end
-  end
-  resources :tag_groups
+
   resources :users do
     collection do
       get 'me'
@@ -31,4 +33,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # 廃止予定
+  resources :sub_categories
+  resources :categories do
+    member do
+      get 'sub_categories'
+    end
+  end
+  resources :conditions
+  resources :tags
+  resources :condition_groups
+  resources :tag_groups
 end

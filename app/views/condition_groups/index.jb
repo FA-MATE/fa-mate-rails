@@ -1,0 +1,7 @@
+@condition_groups.map do |condition_groups|
+  {
+    id: condition_groups.id,
+    name: condition_groups.name,
+    order_no: condition_groups.order_no,
+  }
+end

@@ -1,0 +1,7 @@
+@tag_groups.map do |tag_group|
+  {
+    id: tag_group.id,
+    name: tag_group.name,
+    order_no: tag_group.order_no,
+  }
+end
