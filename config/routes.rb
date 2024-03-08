@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :users
   end
   
+  resources :app_data, only: [:index]
+
   resources :posts do
     member do
       post 'like'
