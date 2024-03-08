@@ -1,3 +1,5 @@
+notification_settings = @user.notification_settings
+
 {
   id: @user.id,
   nickname: @user.nickname,
@@ -13,5 +15,9 @@
         order_no: condition.condition_group.id,
       }
     }
-  end
+  end,
+  notification_settings: {
+      post_notification: notification_settings&.post_notification || false,
+      service_message_notification: notification_settings&.service_message_notification || false,
+  }
 }
