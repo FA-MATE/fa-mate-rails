@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Admin
   class UserConditionsController < ApplicationController
-    before_action :set_user_condition, only: %i[ show update destroy ]
+    before_action :set_user_condition, only: %i[show update destroy]
 
     # GET /user_conditions
     def index
@@ -40,14 +42,15 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_user_condition
-        @user_condition = UserCondition.find(params[:id])
-      end
 
-      # Only allow a list of trusted parameters through.
-      def user_condition_params
-        params.require(:user_condition).permit(:user_id, :condition_id)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_user_condition
+      @user_condition = UserCondition.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def user_condition_params
+      params.require(:user_condition).permit(:user_id, :condition_id)
+    end
   end
 end

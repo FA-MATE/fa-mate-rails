@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserNotificationSender
   def initialize(user_notification)
     @user_notification = user_notification

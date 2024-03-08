@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :condition do
     sequence(:name) { |n| "条件#{n}" }

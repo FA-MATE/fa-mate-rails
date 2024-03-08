@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserNotificationRemover
   class << self
     def user_like_post(user_id:, post_id:)

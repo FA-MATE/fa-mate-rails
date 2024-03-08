@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 notification_settings = @user.notification_settings
 
 {
@@ -12,12 +14,12 @@ notification_settings = @user.notification_settings
       condition_group: {
         id: condition.condition_group.id,
         name: condition.condition_group.id,
-        order_no: condition.condition_group.id,
+        order_no: condition.condition_group.id
       }
     }
   end,
   notification_settings: {
-      post_notification: notification_settings&.post_notification || false,
-      service_message_notification: notification_settings&.service_message_notification || false,
+    post_notification: notification_settings&.post_notification || false,
+    service_message_notification: notification_settings&.service_message_notification || false
   }
 }

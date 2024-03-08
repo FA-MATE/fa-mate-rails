@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :sub_category do
-    association :category
+    category
     sequence(:name) { |n| "品種#{n}" }
     sequence(:order_no)
 

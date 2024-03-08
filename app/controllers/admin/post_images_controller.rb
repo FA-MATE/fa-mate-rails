@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Admin
   class PostImagesController < ApplicationController
-    before_action :set_post_image, only: %i[ show update destroy ]
+    before_action :set_post_image, only: %i[show update destroy]
 
     # GET /post_images
     def index
@@ -38,14 +40,15 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_post_image
-        @post_image = PostImage.find(params[:id])
-      end
 
-      # Only allow a list of trusted parameters through.
-      def post_image_params
-        params.require(:post_image).permit(:post_id, :image, :order_no)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post_image
+      @post_image = PostImage.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def post_image_params
+      params.require(:post_image).permit(:post_id, :image, :order_no)
+    end
   end
 end
