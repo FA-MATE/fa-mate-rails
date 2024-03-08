@@ -1,5 +1,5 @@
 module Admin
-  class TagsController < ::TagsController
+  class TagsController < ApplicationController
     before_action :set_tag, only: %i[ show update destroy ]
 
     # GET /tags

@@ -1,0 +1,58 @@
+categories = @app_data[:categories].map do |category|
+  {
+    id: category.id,
+    name: category.name,
+    order_no: category.order_no
+  }
+end
+
+sub_categories = @app_data[:sub_categories].map do |sub_category|
+  {
+    id: sub_category.id,
+    name: sub_category.name,
+    order_no: sub_category.order_no
+  }
+end
+
+condition_groups = @app_data[:condition_groups].map do |condition_groups|
+  {
+    id: condition_groups.id,
+    name: condition_groups.name,
+    order_no: condition_groups.order_no,
+  }
+end
+
+conditions = @app_data[:conditions].map do |condition|
+  {
+    id: condition.id,
+    name: condition.name,
+    order_no: condition.order_no,
+    condition_group: condition_groups.find{|condition_group| condition_group[:id] === condition.condition_group_id }
+  }
+end
+
+tag_groups = @app_data[:tag_groups].map do |tag_group|
+  {
+    id: tag_group.id,
+    name: tag_group.name,
+    order_no: tag_group.order_no,
+  }
+end
+
+tags = @app_data[:tags].map do |tag|
+  {
+    id: tag.id,
+    name: tag.name,
+    order_no: tag.order_no,
+    tag_group: tag_groups.find{|tag_group| tag_group[:id] === tag.tag_group_id }
+  }
+end
+
+{
+  categories: categories,
+  sub_categories: sub_categories,
+  condition_groups: condition_groups,
+  conditions: conditions,
+  tag_groups: tag_groups,
+  tags: tags,
+}

@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :users
   end
   
+  resources :app_data, only: [:index]
+
   resources :posts do
     member do
       post 'like'
@@ -35,16 +37,4 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
-  # 廃止予定
-  resources :sub_categories
-  resources :categories do
-    member do
-      get 'sub_categories'
-    end
-  end
-  resources :conditions
-  resources :tags
-  resources :condition_groups
-  resources :tag_groups
 end

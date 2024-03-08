@@ -1,5 +1,5 @@
 module Admin
-    class ConditionsController < ::ConditionsController
+    class ConditionsController < ApplicationController
     before_action :set_condition, only: %i[ show update destroy ]
 
     # GET /conditions
