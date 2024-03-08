@@ -9,4 +9,13 @@ class Post < ApplicationRecord
   has_many :post_images
 
   accepts_nested_attributes_for :post_tags, :post_conditions, :post_images
+
+  before_destroy :clear_data
+
+  def clear_data
+    PostTag.where(post_id: self.id).delete_all
+    PostCondition.where(post_id: self.id).delete_all
+    # TODO: イメージファイル削除については別Jobを用意する
+    PostImage.where(post_id: self.id).destroy_all
+  end
 end
