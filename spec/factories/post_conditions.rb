@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :post_condition do
-    association :post
-    association :condition
+    post
+    condition
   end
 end

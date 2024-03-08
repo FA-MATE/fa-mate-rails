@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user_condition do
-    association :user
-    association :condition
+    user
+    condition
   end
 end

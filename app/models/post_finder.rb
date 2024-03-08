@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PostFinder
   def initialize(category_id:, sub_category_id:, tag_ids:, condition_ids:)
     @category_id = category_id
@@ -16,15 +18,15 @@ class PostFinder
   private
 
   def filter_by_category(posts, category_id)
-    return posts unless category_id.present?
+    return posts if category_id.blank?
 
-    posts.where(category_id: category_id) 
+    posts.where(category_id:)
   end
 
   def filter_by_sub_category(posts, sub_category_id)
-    return posts unless sub_category_id.present?
+    return posts if sub_category_id.blank?
 
-    posts.where(sub_category_id: sub_category_id) 
+    posts.where(sub_category_id:)
   end
 
   def filter_by_tags_and_conditions(posts, tag_ids, condition_ids)
@@ -36,7 +38,7 @@ class PostFinder
   end
 
   def filter_by_tags(posts, tag_ids)
-    return posts unless tag_ids.present?
+    return posts if tag_ids.blank?
 
     posts
       .where(tags: { id: tag_ids })
@@ -44,7 +46,7 @@ class PostFinder
   end
 
   def filter_by_conditions(posts, condition_ids)
-    return posts unless condition_ids.present?
+    return posts if condition_ids.blank?
 
     posts
       .where(conditions: { id: condition_ids })

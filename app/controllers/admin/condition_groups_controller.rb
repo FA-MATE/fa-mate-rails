@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Admin
   class ConditionGroupsController < ApplicationController
-  before_action :set_condition_group, only: %i[ show update destroy ]
+    before_action :set_condition_group, only: %i[show update destroy]
 
     # GET /condition_groups
     def index
@@ -40,14 +42,15 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_condition_group
-        @condition_group = ConditionGroup.find(params[:id])
-      end
 
-      # Only allow a list of trusted parameters through.
-      def condition_group_params
-        params.require(:condition_group).permit(:name, :order_no)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_condition_group
+      @condition_group = ConditionGroup.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def condition_group_params
+      params.require(:condition_group).permit(:name, :order_no)
+    end
   end
 end

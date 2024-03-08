@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AppDataController < ApplicationController
   # GET /app_data
   def index

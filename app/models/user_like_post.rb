@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserLikePost
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -8,10 +10,10 @@ class UserLikePost
   before_destroy :delete_notification
 
   def notify
-    UserNotificationCreator.user_like_post(user_id: self.user_id, post_id: self.post_id)
+    UserNotificationCreator.user_like_post(user_id:, post_id:)
   end
 
   def delete_notification
-    UserNotificationRemover.user_like_post(user_id: self.user_id, post_id: self.post_id)
+    UserNotificationRemover.user_like_post(user_id:, post_id:)
   end
 end

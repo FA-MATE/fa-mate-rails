@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Admin
   class PostTagsController < ApplicationController
-    before_action :set_post_tag, only: %i[ show update destroy ]
+    before_action :set_post_tag, only: %i[show update destroy]
 
     # GET /post_tags
     def index
@@ -40,14 +42,15 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_post_tag
-        @post_tag = PostTag.find(params[:id])
-      end
 
-      # Only allow a list of trusted parameters through.
-      def post_tag_params
-        params.require(:post_tag).permit(:post_id, :tag_id)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post_tag
+      @post_tag = PostTag.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def post_tag_params
+      params.require(:post_tag).permit(:post_id, :tag_id)
+    end
   end
 end

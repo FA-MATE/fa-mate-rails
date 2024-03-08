@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 class UserNotification
   module Kind
     USER_LIKE_POST = 1
   end
+
   module ApkVersion
     USER_LIKE_POST = 1
   end

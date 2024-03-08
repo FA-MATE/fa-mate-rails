@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :post do
     sequence(:title) { |n| "タイトル#{n}" }
@@ -31,12 +33,12 @@ FactoryBot.define do
 
     trait :with_post_images do
       after :create do |post|
-        post_image = FactoryBot.build(:post_image, post: post)
-        post_image.image.attach(io: File.open("public/images/dummy/pet0.jpg"), filename: "pet0.jpg")
+        post_image = FactoryBot.build(:post_image, post:)
+        post_image.image.attach(io: File.open('public/images/dummy/pet0.jpg'), filename: 'pet0.jpg')
         post.post_images << post_image
       end
     end
 
-    factory :post_completed, traits: [:with_user, :with_sub_category, :with_tags, :with_conditions, :with_post_images] 
+    factory :post_completed, traits: %i[with_user with_sub_category with_tags with_conditions with_post_images]
   end
 end

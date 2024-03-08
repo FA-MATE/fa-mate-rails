@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 module Admin
   class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[ show update destroy sub_categories]
+    before_action :set_category, only: %i[show update destroy sub_categories]
 
     # GET /categories
     def index
       @categories = Category.all
     end
 
-    def sub_categories
-    end
+    def sub_categories; end
 
     # GET /categories/1
     def show
@@ -41,14 +42,15 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_category
-        @category = Category.find(params[:id])
-      end
 
-      # Only allow a list of trusted parameters through.
-      def category_params
-        params.require(:category).permit(:name, :order_no)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_category
+      @category = Category.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def category_params
+      params.require(:category).permit(:name, :order_no)
+    end
   end
 end

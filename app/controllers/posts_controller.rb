@@ -1,19 +1,17 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy like ]
+  before_action :set_post, only: %i[show update destroy like]
 
   # GET /posts
   def index
-    tag_ids = params[:tag_ids]&.split(',')
-    condition_ids = params[:condition_ids]&.split(',')
-    posts = PostFinder.new(category_id: params[:category_id],
-                           sub_category_id: params[:sub_category_id],
-                           tag_ids: tag_ids,
-                           condition_ids: condition_ids).call
-    post_ids = posts.page(params[:page]).per(params[:per]).map(&:id)
-
+    filtered_post_ids = filtered_posts
+                        .page(params[:page])
+                        .per(params[:per])
+                        .map(&:id)
     @posts = Post
-      .eager_load(:user, post_images: {image_attachment: :blob}, tags: :tag_group)
-      .where(id: post_ids)
+             .eager_load(:user, post_images: { image_attachment: :blob }, tags: :tag_group)
+             .where(id: filtered_post_ids)
   end
 
   # GET /posts/1
@@ -60,20 +58,28 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.eager_load(:user, post_images: {image_attachment: :blob}, tags: :tag_group).find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post)
-        .permit(:category_id,
-                :sub_category_id,
-                :title,
-                :body,
-                post_conditions_attributes: [:condition_id],
-                post_tags_attributes: [:tag_id],
-                post_images_attributes: [:image, :order_no])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.eager_load(:user, post_images: { image_attachment: :blob }, tags: :tag_group).find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post)
+          .permit(:category_id,
+                  :sub_category_id,
+                  :title,
+                  :body,
+                  post_conditions_attributes: [:condition_id],
+                  post_tags_attributes: [:tag_id],
+                  post_images_attributes: %i[image order_no])
+  end
+
+  def filtered_posts
+    PostFinder.new(category_id: params[:category_id],
+                   sub_category_id: params[:sub_category_id],
+                   tag_ids: params[:tag_ids]&.split(','),
+                   condition_ids: params[:condition_ids]&.split(',')).call
+  end
 end

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Admin
   class PostConditionsController < ApplicationController
-    before_action :set_post_condition, only: %i[ show update destroy ]
+    before_action :set_post_condition, only: %i[show update destroy]
 
     # GET /post_conditions
     def index
@@ -40,14 +42,15 @@ module Admin
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_post_condition
-        @post_condition = PostCondition.find(params[:id])
-      end
 
-      # Only allow a list of trusted parameters through.
-      def post_condition_params
-        params.require(:post_condition).permit(:post_id, :condition_id)
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post_condition
+      @post_condition = PostCondition.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def post_condition_params
+      params.require(:post_condition).permit(:post_id, :condition_id)
+    end
   end
 end

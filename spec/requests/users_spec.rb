@@ -1,19 +1,23 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Users", type: :request do
+RSpec.describe 'Users' do
   before do
-    FactoryBot.create :user, id: 1 rescue nil
+    create(:user, id: 1)
+  rescue StandardError
+    nil
   end
 
-  describe "GET /users/me" do
+  describe 'GET /users/me' do
     before do
       # TODO: テスト用の環境を用意する
       allow(UserNotificationSetting).to receive(:where).and_return([])
     end
 
-    it "works! (now write some real specs)" do
+    it 'works! (now write some real specs)' do
       get me_users_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
