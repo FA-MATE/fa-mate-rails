@@ -1,5 +1,5 @@
 module Admin
-  class CategoriesController < ::CategoriesController
+  class CategoriesController < ApplicationController
     before_action :set_category, only: %i[ show update destroy sub_categories]
 
     # GET /categories

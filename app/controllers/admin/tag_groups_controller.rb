@@ -1,5 +1,5 @@
 module Admin
-  class TagGroupsController < ::TagGroupsController
+  class TagGroupsController < ApplicationController
     before_action :set_tag_group, only: %i[ show update destroy ]
 
     # GET /tag_groups
