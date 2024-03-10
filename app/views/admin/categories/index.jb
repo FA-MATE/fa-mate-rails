@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+@categories.map do |category|
+  {
+    id: category.id,
+    name: category.name,
+    order_no: category.order_no,
+    sub_categories: category.sub_categories.map do |sub_category|
+      {
+        id: sub_category.id,
+        category_id: sub_category.category_id,
+        name: sub_category.name,
+        order_no: sub_category.order_no
+      }
+    end
+  }
+end

@@ -21,7 +21,7 @@ module Admin
       @sub_category = SubCategory.new(sub_category_params)
 
       if @sub_category.save
-        render json: @sub_category, status: :created, location: @sub_category
+        show
       else
         render json: @sub_category.errors, status: :unprocessable_entity
       end
@@ -38,7 +38,10 @@ module Admin
 
     # DELETE /sub_categories/1
     def destroy
-      @sub_category.destroy!
+      ActiveRecord::Base.transaction do
+        @sub_category.posts.destroy_all
+        @sub_category.destroy!
+      end
     end
 
     private
