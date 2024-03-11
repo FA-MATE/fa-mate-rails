@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+@posts.map do |post|
+  {
+    id: post.id,
+    title: post.title,
+    body: post.body,
+    category_id: post.category_id,
+    sub_category_id: post.sub_category_id,
+    user: {
+      id: post.user.id,
+      nickname: post.user.nickname,
+      profile_image_url: post.user.profile_image_url
+    },
+    conditions: post.conditions.map do |condition|
+      {
+        id: condition.id,
+        order_no: condition.condition_group.order_no
+      }
+    end,
+    tags: post.tags.map do |tag|
+      {
+        id: tag.id,
+        order_no: tag.tag_group.order_no
+      }
+    end,
+    post_images: post.post_images.map do |post_image|
+      {
+        image_url: post_image.image_url,
+        order_no: post_image.order_no
+      }
+    end,
+    created_at: post.created_at,
+    updated_at: post.updated_at
+  }
+end

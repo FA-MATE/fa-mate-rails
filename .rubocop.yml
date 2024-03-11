@@ -435,6 +435,7 @@ Metrics/BlockLength:
     - config/routes.rb
     - spec/**/*.rb
     - db/migrate/*.rb
+    - app/views/**/*.jb
 
 # ロジックではないものに関してはチェックを無視したい
 Metrics/MethodLength:

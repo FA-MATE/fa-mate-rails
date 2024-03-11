@@ -6,7 +6,7 @@ module Admin
 
     # GET /categories
     def index
-      @categories = Category.all
+      @categories = Category.eager_load(:sub_categories).all
     end
 
     def sub_categories; end
@@ -21,7 +21,7 @@ module Admin
       @category = Category.new(category_params)
 
       if @category.save
-        render json: @category, status: :created, location: @category
+        show
       else
         render json: @category.errors, status: :unprocessable_entity
       end
@@ -38,7 +38,12 @@ module Admin
 
     # DELETE /categories/1
     def destroy
-      @category.destroy!
+      ActiveRecord::Base.transaction do
+        @category.posts.destroy_all
+        @category.sub_categories.each { |sub_category| sub_category.posts.destroy_all }
+        @category.sub_categories.delete_all
+        @category.destroy!
+      end
     end
 
     private
