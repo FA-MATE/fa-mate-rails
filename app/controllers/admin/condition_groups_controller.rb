@@ -6,9 +6,7 @@ module Admin
 
     # GET /condition_groups
     def index
-      @condition_groups = ConditionGroup.all
-
-      render json: @condition_groups
+      @condition_groups = ConditionGroup.eager_load(:conditions).all
     end
 
     # GET /condition_groups/1
@@ -21,7 +19,7 @@ module Admin
       @condition_group = ConditionGroup.new(condition_group_params)
 
       if @condition_group.save
-        render json: @condition_group, status: :created, location: @condition_group
+        show
       else
         render json: @condition_group.errors, status: :unprocessable_entity
       end
@@ -38,7 +36,14 @@ module Admin
 
     # DELETE /condition_groups/1
     def destroy
-      @condition_group.destroy!
+      ActiveRecord::Base.transaction do
+        @condition_group.conditions.each do |condition|
+          condition.user_conditions.delete_all
+          condition.post_conditions.delete_all
+        end
+        @condition_group.conditions.delete_all
+        @condition_group.destroy!
+      end
     end
 
     private

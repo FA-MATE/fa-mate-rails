@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+@condition_groups.map do |condition_group|
+  {
+    id: condition_group.id,
+    name: condition_group.name,
+    order_no: condition_group.order_no,
+    conditions: condition_group.conditions.map do |condition|
+      {
+        id: condition.id,
+        condition_group_id: condition.condition_group_id,
+        name: condition.name,
+        order_no: condition.order_no
+      }
+    end
+  }
+end

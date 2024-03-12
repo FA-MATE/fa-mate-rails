@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+@users.map do |user|
+  {
+    id: user.id,
+    nickname: user.nickname,
+    profile_image_url: user.profile_image_url,
+    conditions: user.conditions.map do |condition|
+      {
+        id: condition.id,
+        condition_group_id: condition.condition_group_id,
+        name: condition.name,
+        order_no: condition.order_no
+      }
+    end,
+    posts: user.posts.map do |post|
+      {
+        id: post.id,
+        title: post.title,
+        category_id: post.category_id,
+        sub_category_id: post.sub_category_id,
+        user: {
+          id: post.user.id,
+          nickname: post.user.nickname,
+          profile_image_url: post.user.profile_image_url
+        },
+        created_at: post.created_at,
+        updated_at: post.updated_at
+      }
+    end
+  }
+end

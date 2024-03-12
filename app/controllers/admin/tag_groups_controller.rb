@@ -6,9 +6,7 @@ module Admin
 
     # GET /tag_groups
     def index
-      @tag_groups = TagGroup.all
-
-      render json: @tag_groups
+      @tag_groups = TagGroup.eager_load(:tags).all
     end
 
     # GET /tag_groups/1
@@ -21,7 +19,7 @@ module Admin
       @tag_group = TagGroup.new(tag_group_params)
 
       if @tag_group.save
-        render json: @tag_group, status: :created, location: @tag_group
+        show
       else
         render json: @tag_group.errors, status: :unprocessable_entity
       end
@@ -38,7 +36,13 @@ module Admin
 
     # DELETE /tag_groups/1
     def destroy
-      @tag_group.destroy!
+      ActiveRecord::Base.transaction do
+        @tag_group.tags.each do |tag|
+          tag.post_tags.delete_all
+        end
+        @tag_group.tags.delete_all
+        @tag_group.destroy!
+      end
     end
 
     private

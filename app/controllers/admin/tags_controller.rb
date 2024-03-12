@@ -6,7 +6,7 @@ module Admin
 
     # GET /tags
     def index
-      @tags = Tag.eager_load(:tag_group).all
+      @tags = Tag.all
     end
 
     # GET /tags/1
@@ -19,7 +19,7 @@ module Admin
       @tag = Tag.new(tag_params)
 
       if @tag.save
-        render json: @tag, status: :created, location: @tag
+        show
       else
         render json: @tag.errors, status: :unprocessable_entity
       end
@@ -36,7 +36,10 @@ module Admin
 
     # DELETE /tags/1
     def destroy
-      @tag.destroy!
+      ActiveRecord::Base.transaction do
+        @tag.post_tags.delete_all
+        @tag.destroy!
+      end
     end
 
     private

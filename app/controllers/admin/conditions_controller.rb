@@ -6,7 +6,7 @@ module Admin
 
     # GET /conditions
     def index
-      @conditions = Condition.eager_load(:condition_group).all
+      @conditions = Condition.all
     end
 
     # GET /conditions/1
@@ -19,7 +19,7 @@ module Admin
       @condition = Condition.new(condition_params)
 
       if @condition.save
-        render json: @condition, status: :created, location: @condition
+        show
       else
         render json: @condition.errors, status: :unprocessable_entity
       end
@@ -36,7 +36,11 @@ module Admin
 
     # DELETE /conditions/1
     def destroy
-      @condition.destroy!
+      ActiveRecord::Base.transaction do
+        @condition.user_conditions.delete_all
+        @condition.post_conditions.delete_all
+        @condition.destroy!
+      end
     end
 
     private

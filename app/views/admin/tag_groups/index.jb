@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+@tag_groups.map do |tag_group|
+  {
+    id: tag_group.id,
+    name: tag_group.name,
+    order_no: tag_group.order_no,
+    tags: tag_group.tags.map do |tag|
+      {
+        id: tag.id,
+        tag_group_id: tag.tag_group_id,
+        name: tag.name,
+        order_no: tag.order_no
+      }
+    end
+  }
+end
