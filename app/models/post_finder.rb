@@ -9,7 +9,7 @@ class PostFinder
   end
 
   def call
-    posts = Post.select(:id).joins(:tags, :conditions)
+    posts = Post.select(:id)
     posts = filter_by_category(posts, @category_id)
     posts = filter_by_sub_category(posts, @sub_category_id)
     filter_by_tags_and_conditions(posts, @tag_ids, @condition_ids)
@@ -40,16 +40,16 @@ class PostFinder
   def filter_by_tags(posts, tag_ids)
     return posts if tag_ids.blank?
 
-    posts
-      .where(tags: { id: tag_ids })
-      .having('COUNT(DISTINCT tags.id) = ?', tag_ids.size)
+    posts.joins(:post_tags)
+      .where(post_tags: { tag_id: tag_ids })
+      .having('COUNT(DISTINCT post_tags.id) = ?', tag_ids.size)
   end
 
   def filter_by_conditions(posts, condition_ids)
     return posts if condition_ids.blank?
 
-    posts
-      .where(conditions: { id: condition_ids })
-      .having('COUNT(DISTINCT conditions.id) = ?', condition_ids.size)
+    posts.joins(:post_conditions)
+      .where(post_conditions: { condition_id: condition_ids })
+      .having('COUNT(DISTINCT post_conditions.id) = ?', condition_ids.size)
   end
 end
