@@ -1,0 +1,37 @@
+name: Run
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      RAILS_ENV: test
+    services:
+      minio:
+        image: devruri/fa-mate:minio
+        env:
+          MINIO_ROOT_USER: minio_root_ci_user
+          MINIO_ROOT_PASSWORD: minio_root_ci_password
+          MINIO_DEFAULT_BUCKETS: fa-mate-ci
+        ports:
+          - 9000:9000
+        volumes:
+          - ${{ github.workspace }}/data:/data
+        credentials:
+          username: ${{ secrets.dockerhub_username }}
+          password: ${{ secrets.dockerhub_password }}
+    container:
+      image: ruby:3.1.2
+    steps:
+      - name: Set up MinIO
+        run: |
+          mkdir -p ${{ github.workspace }}/data/fa-mate-ci
+          echo "Hello, MinIO!" > ${{ github.workspace }}/data/fa-mate-citest.txt
+      - name: Check MinIO
+        run: |
+          curl -I http://minio:9000/minio/health/live

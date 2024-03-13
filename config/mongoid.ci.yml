@@ -1,0 +1,12 @@
+test:
+  clients:
+    default:
+      database: fa_mate_rails_ci
+      hosts:
+        - mongodb:27017
+      options:
+        read:
+          mode: :primary
+        max_pool_size: 1
+        auth_source: admin
+        auth_mech: :scram

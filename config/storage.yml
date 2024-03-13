@@ -14,7 +14,6 @@ s3:
   bucket: <%= Rails.application.credentials.dig(:s3, :bucket) %>
   region: <%= Rails.application.credentials.dig(:s3, :region) %>
   endpoint: <%= Rails.application.credentials.dig(:s3, :endpoint) %>
-  force_path_style: true
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
