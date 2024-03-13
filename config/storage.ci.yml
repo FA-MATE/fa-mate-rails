@@ -1,0 +1,8 @@
+s3:
+  service: S3
+  access_key_id: minio_root_ci_user
+  secret_access_key: minio_root_ci_password
+  bucket: fa-mate-ci
+  region: ap-tokyo-1
+  endpoint: http://minio:9000
+  force_path_style: true
