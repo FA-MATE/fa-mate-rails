@@ -41,15 +41,15 @@ class PostFinder
     return posts if tag_ids.blank?
 
     posts.joins(:post_tags)
-      .where(post_tags: { tag_id: tag_ids })
-      .having('COUNT(DISTINCT post_tags.id) = ?', tag_ids.size)
+         .where(post_tags: { tag_id: tag_ids })
+         .having('COUNT(DISTINCT post_tags.id) = ?', tag_ids.size)
   end
 
   def filter_by_conditions(posts, condition_ids)
     return posts if condition_ids.blank?
 
     posts.joins(:post_conditions)
-      .where(post_conditions: { condition_id: condition_ids })
-      .having('COUNT(DISTINCT post_conditions.id) = ?', condition_ids.size)
+         .where(post_conditions: { condition_id: condition_ids })
+         .having('COUNT(DISTINCT post_conditions.id) = ?', condition_ids.size)
   end
 end

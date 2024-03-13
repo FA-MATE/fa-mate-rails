@@ -435,7 +435,13 @@ Metrics/BlockLength:
     - config/routes.rb
     - spec/**/*.rb
     - db/migrate/*.rb
+    - db/seeds.rb
     - app/views/**/*.jb
+
+# ロジックではないものに関してはチェックを無視したい
+Layout/LineLength:
+  Exclude:
+    - db/seeds.rb
 
 # ロジックではないものに関してはチェックを無視したい
 Metrics/MethodLength:
@@ -443,6 +449,16 @@ Metrics/MethodLength:
     - db/migrate/*.rb
 
 # ロジックではないものに関してはチェックを無視したい
-Metrics/AbcSiz/Metrics/AbcSize:
+Metrics/AbcSize:
   Exclude:
     - db/migrate/*.rb
+
+# ロジックではないものに関してはチェックを無視したい
+Layout/HeredocIndentation:
+  Exclude:
+    - db/seeds.rb
+
+# ロジックではないものに関してはチェックを無視したい
+Layout/ClosingHeredocIndentation:
+  Exclude:
+    - db/seeds.rb

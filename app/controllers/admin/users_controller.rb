@@ -36,10 +36,6 @@ module Admin
 
     # DELETE /users/1
     def destroy
-      @user.destroy!
-    end
-
-    def destroy
       ActiveRecord::Base.transaction do
         @user.posts.destroy_all
         @user.user_conditions.delete_all
