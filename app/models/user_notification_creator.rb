@@ -27,7 +27,7 @@ class UserNotificationCreator
       }
     end
 
-    def create_user_like_post_user_notificaiton(action_user_id, post)
+    def create_user_like_post_user_notification(action_user_id, post)
       UserNotification
         .create(target_user_id: post.user_id,
                 action_user_id:,

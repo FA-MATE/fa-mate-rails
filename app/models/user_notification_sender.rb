@@ -7,7 +7,7 @@ class UserNotificationSender
 
   def call
     sendable_user_devices.each do |device|
-      Rails.logger.info "@@@@@@@ FCM token: #{device.device_token}"
+      Rails.logger.info "Sendable FCM device token: #{device.device_token}"
     end
   end
 

@@ -10,10 +10,10 @@ class UserLikePost
   before_destroy :delete_notification
 
   def notify
-    UserNotificationCreator.user_like_post(user_id:, post_id:)
+    UserNotificationCreator.user_like_post(action_user_id: user_id, post_id:)
   end
 
   def delete_notification
-    UserNotificationRemover.user_like_post(user_id:, post_id:)
+    UserNotificationRemover.user_like_post(action_user_id: user_id, post_id:)
   end
 end
