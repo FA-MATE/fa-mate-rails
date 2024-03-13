@@ -11,6 +11,7 @@ end
 sub_categories = @app_data[:sub_categories].map do |sub_category|
   {
     id: sub_category.id,
+    category_id: sub_category.category_id,
     name: sub_category.name,
     order_no: sub_category.order_no
   }
@@ -27,6 +28,7 @@ end
 conditions = @app_data[:conditions].map do |condition|
   {
     id: condition.id,
+    condition_group_id: condition.condition_group_id,
     name: condition.name,
     order_no: condition.order_no,
     condition_group: condition_groups.find { |condition_group| condition_group[:id] == condition.condition_group_id }
@@ -44,6 +46,7 @@ end
 tags = @app_data[:tags].map do |tag|
   {
     id: tag.id,
+    tag_group_id: tag.tag_group_id,
     name: tag.name,
     order_no: tag.order_no,
     tag_group: tag_groups.find { |tag_group| tag_group[:id] == tag.tag_group_id }
