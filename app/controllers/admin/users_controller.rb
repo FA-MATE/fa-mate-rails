@@ -39,6 +39,14 @@ module Admin
       @user.destroy!
     end
 
+    def destroy
+      ActiveRecord::Base.transaction do
+        @user.posts.destroy_all
+        @user.user_conditions.delete_all
+        @user.destroy!
+      end
+    end
+
     def me
       user = User.find(1)
       @user = User.eager_load(:conditions).find(user.id)
