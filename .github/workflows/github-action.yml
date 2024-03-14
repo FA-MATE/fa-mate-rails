@@ -27,18 +27,20 @@ jobs:
         env:
           MINIO_ROOT_USER: minio_root_ci_user
           MINIO_ROOT_PASSWORD: minio_root_ci_password
-        volumes:
-          - ${{ github.workspace }}/data:/data
         ports:
           - 9000:9000
-        options: 
-          --name=minio --health-cmd "curl http://127.0.0.1:9000/minio/health/live"
+        volumes:
+          - ${{ github.workspace }}/data:/data
         credentials:
           username: ${{ secrets.dockerhub_username }}
           password: ${{ secrets.dockerhub_password }}
     container:
       image: ruby:3.1.2
     steps:
+      - name: Set up MinIO
+        run: |
+          mkdir -p ${{ github.workspace }}/data/fa-mate-ci
+          echo "Hello, MinIO!" > ${{ github.workspace }}/data/fa-mate-ci/test.txt
       - uses: actions/checkout@v2
       - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.10.0
