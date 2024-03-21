@@ -7,21 +7,20 @@ module Admin
     # GET /categories
     def index
       @categories = Category.eager_load(:sub_categories).all
+      @categories = @categories.where(id: params[:id]) if params[:id]
     end
 
     def sub_categories; end
 
     # GET /categories/1
-    def show
-      render json: @category
-    end
+    def show; end
 
     # POST /categories
     def create
       @category = Category.new(category_params)
 
       if @category.save
-        show
+        redirect_to admin_category_url(@category)
       else
         render json: @category.errors, status: :unprocessable_entity
       end
@@ -30,7 +29,7 @@ module Admin
     # PATCH/PUT /categories/1
     def update
       if @category.update(category_params)
-        render json: @category
+        redirect_to admin_category_url(@category)
       else
         render json: @category.errors, status: :unprocessable_entity
       end
@@ -50,7 +49,7 @@ module Admin
 
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:id])
+      @category = Category.eager_load(:sub_categories).find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
