@@ -6,12 +6,14 @@ class PostsController < ApplicationController
   # GET /posts
   def index
     filtered_post_ids = filtered_posts
+                        .order(created_at: :desc)
                         .page(params[:page])
                         .per(params[:per])
                         .map(&:id)
     @posts = Post
              .eager_load(:user, post_images: { image_attachment: :blob }, tags: :tag_group)
              .where(id: filtered_post_ids)
+             .order(created_at: :desc)
   end
 
   # GET /posts/1
