@@ -22,7 +22,8 @@ module Admin
       PostFinder.new(category_id: params[:category_id],
                      sub_category_id: params[:sub_category_id],
                      tag_ids: params[:tag_ids]&.split(','),
-                     condition_ids: params[:condition_ids]&.split(',')).call
+                     condition_ids: params[:condition_ids]&.split(','),
+                     user_id: params[:user_id]).call
     end
   end
 end

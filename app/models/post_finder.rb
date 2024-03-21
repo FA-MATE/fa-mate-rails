@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
 class PostFinder
-  def initialize(category_id:, sub_category_id:, tag_ids:, condition_ids:)
+  def initialize(category_id:, sub_category_id:, tag_ids:, condition_ids:, user_id:)
     @category_id = category_id
     @sub_category_id = sub_category_id
     @tag_ids = tag_ids
     @condition_ids = condition_ids
+    @user_id = user_id
   end
 
   def call
     posts = Post.select(:id)
     posts = filter_by_category(posts, @category_id)
     posts = filter_by_sub_category(posts, @sub_category_id)
+    posts = filter_by_user(posts, @user_id)
     filter_by_tags_and_conditions(posts, @tag_ids, @condition_ids)
   end
 
@@ -27,6 +29,12 @@ class PostFinder
     return posts if sub_category_id.blank?
 
     posts.where(sub_category_id:)
+  end
+
+  def filter_by_user(posts, user_id)
+    return posts if user_id.blank?
+
+    posts.where(user_id:)
   end
 
   def filter_by_tags_and_conditions(posts, tag_ids, condition_ids)
