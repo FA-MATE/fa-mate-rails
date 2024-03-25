@@ -20,7 +20,7 @@ module Admin
       @category = Category.new(category_params)
 
       if @category.save
-        redirect_to admin_category_url(@category)
+        redirect_to admin_category_url(@category, status: :see_other)
       else
         render json: @category.errors, status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ module Admin
     # PATCH/PUT /categories/1
     def update
       if @category.update(category_params)
-        redirect_to admin_category_url(@category)
+        redirect_to admin_category_url(@category, status: :see_other)
       else
         render json: @category.errors, status: :unprocessable_entity
       end

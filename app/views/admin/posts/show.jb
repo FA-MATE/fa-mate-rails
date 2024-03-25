@@ -24,7 +24,8 @@
   post_images: @post.post_images.map do |post_image|
     {
       image_url: post_image.image_url,
-      order_no: post_image.order_no
+      order_no: post_image.order_no,
+      status: :uploaded
     }
   end,
   already_liked: @already_liked,

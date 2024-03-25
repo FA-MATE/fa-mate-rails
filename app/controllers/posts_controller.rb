@@ -27,8 +27,8 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = 1
 
-    if @post.save
-      render json: @post, status: :created, location: @post
+    if @post.save!
+      redirect_to post_url(@post, status: :see_other)
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -36,8 +36,13 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1
   def update
-    if @post.update(post_params)
-      render json: @post
+    result = ApplicationRecord.transaction do
+      @post.post_tags.delete_all
+      @post.post_conditions.delete_all
+      @post.update!(post_params)
+    end
+    if result
+      redirect_to post_url(@post, status: :see_other)
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -75,7 +80,7 @@ class PostsController < ApplicationController
                   :body,
                   post_conditions_attributes: [:condition_id],
                   post_tags_attributes: [:tag_id],
-                  post_images_attributes: %i[image order_no])
+                  post_images_attributes: %i[id image order_no])
   end
 
   def filtered_posts
