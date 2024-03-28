@@ -30,7 +30,7 @@ condition_groups = {
 end
 
 users = %w[user hoge fuga].map.with_index do |nickname, id|
-  user = User.new(id:, nickname:)
+  user = User.new(id:, nickname:, email: "#{nickname}@example.com", password: nickname, confirmed_at: Time.zone.now)
   condition_groups.each do |condition_group|
     user.conditions << condition_group.conditions[rand(condition_group.conditions.length)]
   end

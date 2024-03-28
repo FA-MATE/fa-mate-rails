@@ -9,6 +9,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable
   include DeviseTokenAuth::Concerns::User
+  include AppAuth
 
   has_many :posts, dependent: :destroy
   has_many :user_conditions, dependent: :destroy
@@ -18,7 +19,7 @@ class User < ApplicationRecord
     UserNotificationSetting.where(user_id: id).first
   end
 
-  def devices
+  def user_devices
     UserDevice.where(user_id: id)
   end
 end
